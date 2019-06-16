@@ -29,8 +29,8 @@ class App extends Component {
       .catch(err => console.log(err))
   }
 
-  addSmurf = smurf => {
-    // add code to create the smurf using the api
+  addSmurf = (e, smurf) => {
+    e.preventDefault();
     axios.post('http://localhost:3333/smurfs', smurf)
       .then(res => {
         this.setState({
@@ -40,11 +40,25 @@ class App extends Component {
       .catch(err => console.log(err))
   }
 
-  updateSmurf = (e, smurf) => {
+  deleteSmurf = (e, smurf) => {
     console.log(smurf)
     e.preventDefault();
+  axios.delete(`http://localhost:3333/smurfs/${smurf.id}`)
+    .then(res => {
+      this.setState({
+        smurfs: res.data
+      })
+      console.log(res)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }
+
+  updateSmurf = (e, smurf) => {
+    e.preventDefault();
     axios
-      .put(`http://localhost:3333/smurfs${smurf.id}`, smurf)
+      .put(`http://localhost:3333/smurfs/${smurf.id}`, smurf)
       .then(res => {
         console.log(res);
         this.setState({ smurfs: res.data })
@@ -65,7 +79,7 @@ class App extends Component {
       <div className="App">
         <Navbar />
         <Route path='/smurf-form' render={props => <SmurfForm {...props} addSmurf={this.addSmurf} updateSmurf={this.updateSmurf} activeSmurf={this.state.activeSmurf}/> } />
-        <Route path='/' render={props => <Smurfs {...props} smurfs={this.state.smurfs} setUpdateSmurf={this.setUpdateSmurf} /> } />
+        <Route path='/' render={props => <Smurfs {...props} smurfs={this.state.smurfs} setUpdateSmurf={this.setUpdateSmurf} deleteSmurf={this.deleteSmurf} /> } />
       </div>
     );
   }

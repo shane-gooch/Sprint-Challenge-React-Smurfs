@@ -5,12 +5,12 @@ class SmurfForm extends Component {
   constructor(props) {
     super(props);
     console.log(props)
-    this.state = this.props.activeSmurf || {
+    this.state =  {
       smurf: {
+        id: 0,
         name: '',
         age: '',
         height: '',
-        id: 0,
       },
       active: false 
    }
@@ -18,32 +18,25 @@ class SmurfForm extends Component {
   componentDidUpdate(prevProps){
     if(this.props.activeSmurf && prevProps.activeSmurf !== this.props.activeSmurf) {
       this.setState({ 
-        name: this.props.activeSmurf.name,
-        age: this.props.activeSmurf.age,
-        height:this.props.activeSmurf.height,
-        id: this.props.activeSmurf.id,
+        smurf:{
+          name: this.props.activeSmurf.name,
+          age: this.props.activeSmurf.age,
+          height:this.props.activeSmurf.height,
+          id: this.props.activeSmurf.id,
+        },
         active: true
       })
     }
   }
 
-  addSmurf = (e) => {
-    e.preventDefault();
-    this.props.addSmurf(this.state)
-    this.setState({
-      name: '',
-      age: '',
-      height: ''
-    });
-  }
-
   handleInputChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
+    this.setState({ smurf: { ...this.state.smurf,
+      [e.target.name]: e.target.value }
+    })
   };
 
 
-  submitHandler = (e, smurf) => {
-  
+  submitHandler = (e) => {
     if(this.state.active) {
       this.props.updateSmurf(e, this.state.smurf)
     } else{
@@ -62,25 +55,24 @@ class SmurfForm extends Component {
   render() {
     return (
       <div className="SmurfForm">
-        {/* <form onSubmit={this.submitHandler}> */}
-        <form onSubmit={this.addSmurf}>
+        <form onSubmit={this.submitHandler}>
           <div className='input-btn'>
             <input className='input'
               onChange={this.handleInputChange}
               placeholder="name"
-              value={this.state.name}
+              value={this.state.smurf.name}
               name="name"
             />
             <input className='input'
               onChange={this.handleInputChange}
               placeholder="age"
-              value={this.state.age}
+              value={this.state.smurf.age}
               name="age"
             />
             <input className='input'
               onChange={this.handleInputChange}
               placeholder="height"
-              value={this.state.height}
+              value={this.state.smurf.height}
               name="height"
             />
             <button className='sub-btn' type="submit">{`${this.state.active ? 'Update Village' : 'Add to the village'}`}</button>
