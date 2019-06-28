@@ -1,3 +1,61 @@
 .App {
   text-align: center;
+  max-width: 950px; 
+  display: flex;
+  flex-direction: column; 
+  align-items: center; 
 }
+
+.navbar {
+  width: 100%; 
+  display: flex;
+  justify-content: flex-end;
+}
+
+.navbar a {
+  text-decoration: none; 
+  color: black;
+  padding: 10;
+  margin: 10px; 
+}
+
+
+.input{
+  margin-top: 8px; 
+}
+
+.input:focus{
+  box-shadow: 0 0 5px #66D3FA;
+	padding: 0.5%;
+	border: 1px solid #66D3FA;
+}
+
+.sub-btn{
+  border-radius: 5px; 
+  margin-top: 8px
+}
+
+.sub-btn:hover{
+  box-shadow: 0 0 5px #66D3FA;
+	padding: 0.5%;
+	border: 1px solid #66D3FA;
+}
+
+.smurfs {
+  margin-top: 15px; 
+  display: flex; 
+  justify-content: center; 
+}
+
+.Smurfs ul {
+  margin-top: 80px; 
+  padding: 0px; 
+}
+
+.Smurf {
+  /* border: 1px solid black;  */
+  margin: 5px; 
+  border-radius: 5px; 
+  box-shadow: -1px 2px 9px -2px rgba(102,211,250,0.69);
+}
+
